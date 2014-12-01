@@ -1,0 +1,32 @@
+{
+  "name": "remote-forwarder",
+  "version": "0.0.1",
+  "description": "Forward a local port to a remote server in node, using SSH client",
+  "main": "forwarder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcollina/remote-forwarder.git"
+  },
+  "keywords": [
+    "ssh",
+    "port",
+    "forward"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcollina/remote-forwarder/issues"
+  },
+  "homepage": "https://github.com/mcollina/remote-forwarder",
+  "dependencies": {
+    "inherits": "^2.0.1",
+    "recovery": "^0.1.0",
+    "split2": "^0.2.1"
+  },
+  "devDependencies": {
+    "through2": "^0.6.3"
+  }
+}
