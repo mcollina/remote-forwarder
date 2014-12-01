@@ -35,7 +35,7 @@ forward.on('connect', function() {
 
   // do stuff here ...
 
-  forward.stop() // to stop forwarding()
+  forward.stop() // to stop forwarding
 })
 
 forward.start()
