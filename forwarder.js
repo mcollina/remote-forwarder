@@ -78,6 +78,8 @@ function connect(opts, done) {
     // the process is ok!
     if (line === 'ready') return done()
 
+    forwarder.emit('ssh error', line)
+
     // the process has some trouble
     // kill it and restart
     forwarder._kill()
