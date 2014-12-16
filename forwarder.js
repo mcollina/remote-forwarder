@@ -59,9 +59,12 @@ function connect(opts, done) {
     args.push(forwarder.identityFile)
   }
 
-  args.push('-R')
+  args.push('-q') // suppress warnings
+  args.push('-R') // remote forwarding
   args.push(forwarder.bindAddress + ':' + forwarder.remotePort + ':localhost:' + forwarder.remotePort)
   args.push(forwarder.user + '@' + forwarder.target)
+
+  // command to execute, we write ready and expect ready back
   args.push('cat')
   args.push('-')
 
@@ -72,6 +75,9 @@ function connect(opts, done) {
   child.stderr.pipe(split()).on('data', handler)
 
   child.on('error', done)
+
+  // sending the ready string, when we read it we will
+  // be setted up
   child.stdin.write('ready\n')
 
   function handler(line) {
