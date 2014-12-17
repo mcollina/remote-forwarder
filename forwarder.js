@@ -94,11 +94,18 @@ function connect(opts, done) {
 }
 
 Forwarder.prototype._kill = function(cb) {
-  this._child.removeAllListeners('error')
-  this._child.on('error', function nop() {})
-  this._child.kill('SIGTERM')
-  if (cb) {
+  if (this._child) {
+    this._child.removeAllListeners('error')
+    this._child.on('error', function nop() {})
+    this._child.kill('SIGTERM')
+    if (cb) {
     this._child.on('exit', cb)
+    }
+  }
+  else {
+    if (cb) {
+      cb();
+    }
   }
 }
 
