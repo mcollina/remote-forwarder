@@ -37,7 +37,14 @@ server.on('listening', function() {
     // new connection is established
 
     console.log('forwarder setted up!')
-    var child     = spawn('ssh', [user + '@' + target, 'nc', 'localhost', '' + port])
+    var args      = [user + '@' + target, 'nc', 'localhost', '' + port];
+
+    if (identity) {
+      args.unshift(identity)
+      args.unshift('-i')
+    }
+
+    var child     = spawn('ssh', args)
       , splitted  = child.stdout.pipe(split())
       , text      = 'hello world'
 

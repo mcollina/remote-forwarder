@@ -59,8 +59,13 @@ function connect(opts, done) {
     args.push(forwarder.identityFile)
   }
 
+  // do not check if the host is known
+  args.push('-o')
+  args.push('StrictHostKeyChecking=no')
+
   args.push('-q') // suppress warnings
   args.push('-R') // remote forwarding
+
   args.push(forwarder.bindAddress + ':' + forwarder.remotePort + ':localhost:' + forwarder.remotePort)
   args.push(forwarder.user + '@' + forwarder.target)
 
