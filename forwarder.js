@@ -80,31 +80,42 @@ function connect(opts, done) {
   child.stderr.pipe(split()).on('data', handler)
 
   child.on('error', done)
+  child.on('exit', function() {
+    forwarder.reconnect();
+  });
 
   // sending the ready string, when we read it we will
   // be setted up
   child.stdin.write('ready\n')
 
   function handler(line) {
+    var cb = done;
+    done = null;
+
     // the process is ok!
-    if (line === 'ready') return done()
+    if (line === 'ready') return cb()
 
     forwarder.emit('ssh error', line)
 
     // the process has some trouble
     // kill it and restart
     forwarder._kill()
-    forwarder.reconnected(new Error('problems with the tunnel'))
+    if (cb) {
+      cb(new Error('problems with the tunnel'))
+    } else {
+      forwarder.reconnect();
+    }
   }
 }
 
 Forwarder.prototype._kill = function(cb) {
   if (this._child) {
     this._child.removeAllListeners('error')
+    this._child.removeAllListeners('exit')
     this._child.on('error', function nop() {})
     this._child.kill('SIGTERM')
     if (cb) {
-    this._child.on('exit', cb)
+      this._child.on('exit', cb)
     }
   }
   else {
