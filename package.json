@@ -1,6 +1,6 @@
 {
   "name": "remote-forwarder",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Forward a local port to a remote server in node, using SSH client",
   "main": "forwarder.js",
   "scripts": {
