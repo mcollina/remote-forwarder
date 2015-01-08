@@ -62,6 +62,8 @@ function connect(opts, done) {
   // do not check if the host is known
   args.push('-o')
   args.push('StrictHostKeyChecking=no')
+  args.push('-o')
+  args.push('UserKnownHostsFile=/dev/null')
 
   args.push('-q') // suppress warnings
   args.push('-R') // remote forwarding
