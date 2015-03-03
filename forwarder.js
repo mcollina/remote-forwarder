@@ -64,6 +64,10 @@ function connect(opts, done) {
   args.push('StrictHostKeyChecking=no')
   args.push('-o')
   args.push('UserKnownHostsFile=/dev/null')
+  args.push('-o')
+  args.push('BatchMode=yes')
+  args.push('-o')
+  args.push('ConnectTimeout=10')
 
   args.push('-q') // suppress warnings
   args.push('-R') // remote forwarding
