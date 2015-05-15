@@ -68,6 +68,10 @@ function connect(opts, done) {
   args.push('BatchMode=yes')
   args.push('-o')
   args.push('ConnectTimeout=10')
+  args.push('-o')
+  args.push('ServerAliveInterval=15')
+  args.push('-o')
+  args.push('ServerAliveCountMax=2')
 
   args.push('-q') // suppress warnings
   args.push('-R') // remote forwarding
